@@ -1,5 +1,15 @@
 package src.p03.c01;
 
+/*
+ * Autor: Jonas Martinez 
+ * 		  David Perez
+ * 
+ * Clase ActividadEntradaPuerta donde indicamos cuando se entra al parques y por que puerta.
+ * 
+ * Version 1.1
+ * 
+ */
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

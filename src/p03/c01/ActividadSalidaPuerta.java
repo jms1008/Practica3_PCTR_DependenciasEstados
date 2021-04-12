@@ -1,5 +1,16 @@
 package src.p03.c01;
 
+/*
+ * Autor: Jonas Martinez 
+ * 		  David Perez
+ * 
+ * Clase ActividadSalidaPuerta donde indicamos cuando se sale del parque y por que puerta.
+ * 
+ * Version 1.1
+ * 
+ */
+
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -8,7 +19,7 @@ import java.util.logging.Logger;
 public class ActividadSalidaPuerta implements Runnable{
 
 	//
-	// TODO modificación de ActividadEntradaPuerta.java
+	// TODO modificaciÃ³n de ActividadEntradaPuerta.java
 	//
 	private static final int NUMSALIDAS = 20;
 	private String puerta;

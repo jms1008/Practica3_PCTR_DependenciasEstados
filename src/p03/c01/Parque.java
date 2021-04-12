@@ -1,11 +1,19 @@
 package src.p03.c01;
-
+/*
+ * Autor: Jonas Martinez 
+ * 		  David Perez
+ * 
+ * Esta es la clase principal de parque donde indicamos cuando entran y salen y por que puerta.
+ * 
+ * Version 1.1
+ * 
+ */
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Parque implements IParque{
 
-	// TODO (creo), añadir totalPersonasPuertas
+	// TODO (creo), aï¿½adir totalPersonasPuertas
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
 	public static final int totalPersonasPuertas = 20;
