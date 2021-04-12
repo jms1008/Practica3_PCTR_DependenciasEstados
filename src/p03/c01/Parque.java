@@ -1,14 +1,14 @@
-package p03.c01;
+package src.p03.c01;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Parque implements IParque{
 
-	// TODO 
+	// TODO (creo), añadir totalPersonasPuertas
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
-	
+	public static final int totalPersonasPuertas = 20;
 	
 	public Parque() {	// TODO
 		contadorPersonasTotales = 0;
@@ -18,15 +18,14 @@ public class Parque implements IParque{
 
 
 	@Override
-	public void entrarAlParque(String puerta){		// TODO
+	public synchronized void entrarAlParque(String puerta){		// TODO
 		
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// TODO
-				
+		// TODO 
 		
 		// Aumentamos el contador total y el individual
 		contadorPersonasTotales++;		
@@ -39,13 +38,33 @@ public class Parque implements IParque{
 		
 		
 		// TODO
-		
 	}
 	
 	// 
 	// TODO MÃ©todo salirDelParque
 	//
-	
+	@Override
+	public synchronized void salirDelParque(String puerta){		// TODO
+		//TODO
+		// Si no hay entradas por esa puerta, inicializamos
+		if (contadoresPersonasPuerta.get(puerta) == null){
+			contadoresPersonasPuerta.put(puerta, 0);
+		}
+				
+		// TODO 
+				
+		// Disminuir el contador total y el individual
+		contadorPersonasTotales--;		
+		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
+				
+		// Imprimimos el estado del parque
+		imprimirInfo(puerta, "Salida");
+				
+		// TODO
+				
+				
+		// TODO
+	}
 	
 	private void imprimirInfo (String puerta, String movimiento){
 		System.out.println(movimiento + " por puerta " + puerta);
@@ -70,13 +89,16 @@ public class Parque implements IParque{
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
 		// TODO 
+		assert contadorPersonasTotales == totalPersonasPuertas: "Invariante incumplido";
 		// TODO
+		
 	}
 
 	protected void comprobarAntesDeEntrar(){	// TODO
 		//
 		// TODO
 		//
+		assert contadorPersonasTotales <= totalPersonasPuertas: "completar";
 	}
 
 	protected void comprobarAntesDeSalir(){		// TODO

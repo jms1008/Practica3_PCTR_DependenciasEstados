@@ -1,4 +1,4 @@
-package p03.c01;
+package src.p03.c01;
 
 public class SistemaLanzador {
 	public static void main(String[] args) {
@@ -6,13 +6,13 @@ public class SistemaLanzador {
 		IParque parque = new Parque(); // TODO
 		char letra_puerta = 'A';
 		
-		System.out.println("Â¡Parque abierto!");
+		System.out.println("¡Parque abierto!");
 		
 		for (int i = 0; i < Integer.parseInt(args[0]); i++) {
 			
 			String puerta = ""+((char) (letra_puerta++));
 			
-			// CreaciÃ³n de hilos de entrada
+			// Creación de hilos de entrada
 			ActividadEntradaPuerta entradas = new ActividadEntradaPuerta(puerta, parque);
 			new Thread (entradas).start();
 			
@@ -20,7 +20,9 @@ public class SistemaLanzador {
 			// TODO
 			//
 			
-			
+			// Hilos de salida
+			ActividadSalidaPuerta salidas = new ActividadSalidaPuerta(puerta, parque);
+			new Thread (salidas).start();
 		}
 	}	
 }
