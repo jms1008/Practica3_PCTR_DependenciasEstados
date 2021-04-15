@@ -6,7 +6,7 @@ package src.p03.c01;
  * 
  * Clase ActividadEntradaPuerta donde indicamos cuando se entra al parques y por que puerta.
  * 
- * Version 1.1
+ * Version 1.3
  * 
  */
 

@@ -5,7 +5,7 @@ package src.p03.c01;
  * 
  * Esta es la clase principal de parque donde indicamos cuando entran y salen y por que puerta.
  * 
- * Version 1.2
+ * Version 1.3
  * 
  */
 import java.util.Enumeration;
@@ -13,73 +13,67 @@ import java.util.Hashtable;
 
 public class Parque implements IParque{
 
-	// TODO
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
-	public static final int totalPersonasPuertas = 50;
+	// definimos la variable parqueLleno y la asignamos el valor de 50
+	public static final int parqueLleno = 50;
+	// definimos la variable parqueVacio y la asignamos el valor de 0
+	public static final int parqueVacio = 0;
 	
-	public Parque() {	// TODO
+	public Parque() {
 		contadorPersonasTotales = 0;
 		contadoresPersonasPuerta = new Hashtable<String, Integer>();
-		// TODO
 	}
 
 
 	@Override
-	public synchronized void entrarAlParque(String puerta){		// TODO
+	public synchronized void entrarAlParque(String puerta){
 		
-		// Si no hay entradas por esa puerta, inicializamos
-		
-		
+		// Si no hay entradas por esa puerta, inicializamos		
 		if (contadoresPersonasPuerta.get(puerta) == null){
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// TODO, no tenemos seguro la comprobacion aqui de la entrada.
+		// Comprueba si el parque está lleno
 		comprobarAntesDeEntrar();
 		
 		// Aumentamos el contador total y el individual
 		contadorPersonasTotales++;		
 		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)+1);
 		
-		 
-		
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
-		//TODO
+		
+		// Realizamos las comprobaciones necesarias par ver si nos pasamos de los salimos de los rangos establecidos
 		checkInvariante();
 		
-		//TODO
+		//
 		notifyAll();
 	}
 	
-	// 
-	// TODO Método salirDelParque
-	//
+	
 	@Override
 	public synchronized void salirDelParque(String puerta){		// TODO
-		//TODO
+
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 				
-		// TODO 
-		
+		// Comprueba si el parque está vacío		
 		comprobarAntesDeSalir(puerta);
 		
 		// Disminuir el contador total y el individual
 		contadorPersonasTotales--;		
 		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
-		
-		
-				
+			
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Salida");	
-		// TODO
+		
+		// Realizamos las comprobaciones necesarias par ver si nos pasamos de los salimos de los rangos establecidos
 		checkInvariante();	
 				
-		// TODO
+		// 
 		notifyAll();
 	}
 	
@@ -105,42 +99,33 @@ public class Parque implements IParque{
 	
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
-		// TODO 
-		assert contadorPersonasTotales <= totalPersonasPuertas: "Invariante incumplido";
-		// TODO
+		// Comprobamos que el nuemro de personas dentro del parque es menor o igual al máximo de personas que pueden estar dentro (50) 
+		assert contadorPersonasTotales <= parqueLleno: "Invariante incumplido";
+		// Comprobamos que la cantidad de personas es un numeropositivo ya que no se puede dar una cantidad de personas negativa
 		assert contadorPersonasTotales >= 0: "No puede haber una cantidad negativa de personas";
 	}
 
-	protected void comprobarAntesDeEntrar(){	// TODO
-		//
-		// TODO
-		//
-
-		while(contadorPersonasTotales >= totalPersonasPuertas) {
+	protected void comprobarAntesDeEntrar(){
+		// bucle que lanza un wait() si el parque está lleno, de esta forma no puede entrar ninguna otra persona hasta que no salga almenos una del parque
+		while(contadorPersonasTotales >= parqueLleno) {
 			try {
 				wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	protected void comprobarAntesDeSalir(String puerta){		// TODO
-		//
-		// TODO
-		//
-
-		while(contadorPersonasTotales <=0) {
+	protected void comprobarAntesDeSalir(String puerta){
+		// bucle que lanza un wait() si el parque está vacio, de esta forma nunca tendremos una cantidad de personas negativa en el parque
+		while(contadorPersonasTotales <= parqueVacio) {
 			try {
 				wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-
-
 }
