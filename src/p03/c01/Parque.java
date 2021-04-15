@@ -16,7 +16,7 @@ public class Parque implements IParque{
 	// TODO
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
-	public static final int totalPersonasPuertas = 20;
+	public static final int totalPersonasPuertas = 50;
 	
 	public Parque() {	// TODO
 		contadorPersonasTotales = 0;
@@ -36,17 +36,16 @@ public class Parque implements IParque{
 		}
 		
 		// TODO, no tenemos seguro la comprobacion aqui de la entrada.
-		
+		comprobarAntesDeEntrar();
 		
 		// Aumentamos el contador total y el individual
 		contadorPersonasTotales++;		
 		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)+1);
 		
-		 comprobarAntesDeEntrar();
+		 
 		
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
-		
 		//TODO
 		checkInvariante();
 		
@@ -76,8 +75,7 @@ public class Parque implements IParque{
 		
 				
 		// Imprimimos el estado del parque
-		imprimirInfo(puerta, "Salida");
-				
+		imprimirInfo(puerta, "Salida");	
 		// TODO
 		checkInvariante();	
 				
@@ -117,33 +115,31 @@ public class Parque implements IParque{
 		//
 		// TODO
 		//
-		if(contadorPersonasTotales>=totalPersonasPuertas) {
-		//while(contadorPersonasTotales > totalPersonasPuertas) {
+
+		while(contadorPersonasTotales >= totalPersonasPuertas) {
 			try {
 				wait();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-		//}
+
+		}
 	}
 
 	protected void comprobarAntesDeSalir(String puerta){		// TODO
 		//
 		// TODO
 		//
-		if(contadorPersonasTotales ==0) {
-		//	while(contadorPersonasTotales >0) {
-			
+
+		while(contadorPersonasTotales <=0) {
 			try {
 				wait();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-		//}
+		}
 	}
 
 
